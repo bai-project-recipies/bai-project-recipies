@@ -1,6 +1,6 @@
 <template>
   <div class="RecipeSearchFormComponent ml-md-4">
-    <b-button class="" v-b-toggle.filter size="sm" style="min-width: 7rem" variant="primary">
+    <b-button v-b-toggle.filter size="sm" style="min-width: 7rem" variant="primary">
       <b-icon icon="filter-left"/> Filter <b-icon icon="arrows-collapse"/>
     </b-button>
     <b-collapse visible id="filter" class="mt-2">

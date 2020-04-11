@@ -1,9 +1,7 @@
 <template>
   <v-app id=”app”>
     <NavigationComponent/>
-    <RecipiesComponent example="Tutaj tekst"/>
-    <v-content>
-    </v-content>
+    <router-view/>
   </v-app>
 </template>
 
