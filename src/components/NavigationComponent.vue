@@ -1,7 +1,7 @@
 <template>
-  <div class="NavigationComponent">
+  <div class="NavigationComponent mb-12 pb-10 pb-lg-1">
     <div>
-      <b-navbar toggleable="lg" type="dark" variant="primary">
+      <b-navbar fixed="top" class="custom_navbar" toggleable="lg" type="dark" variant="primary">
         <router-link to="/"><b-navbar-brand>Recipies App</b-navbar-brand></router-link>
         <b-navbar-toggle target="nav-collapse"/>
 
@@ -15,8 +15,8 @@
           </b-navbar-nav>
 
           <b-navbar-nav>
-            <b-nav-item href="#">Generate meal plan</b-nav-item>
-            <b-nav-item href="#">Map ingredient to grocery products</b-nav-item>
+            <b-nav-item><router-link tag="info" to="/generate-meal-plan">Generate meal plan</router-link></b-nav-item>
+            <b-nav-item>Map ingredient to grocery products</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>

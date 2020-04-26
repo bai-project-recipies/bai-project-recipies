@@ -21,6 +21,7 @@
       <b-card-text>
         <p class="information">Ready in minutes: {{readyInMinutes}}</p>
         <p class="information">Servings: {{servings}}</p>
+        <p class="information">Likes: {{likes}} <button v-on:click="setLikes(id, likes+1)">Add Like</button></p>
       </b-card-text>
       <b-button
         href="#"
@@ -33,37 +34,32 @@
 </template>
 
 <script>
-import { baseRecipiesApiPhotosUrl } from "../../shared/constants";
-import axios from "axios";
-import { baseRecipiesApiUrl, getWithEndpoint } from "../../shared/constants";
+  import {baseRecipiesApiPhotosUrl} from '../../shared/constants';
+  import {getLikes, setLikes} from '../../shared/DBHandling';
 
-export default {
-  data() {
-    return {
-      results: [],
-      steps:[],
-      recipeTitle: "",
-      recipeImageUrl: "",
-    };
-  },
-  props: {
-    id: Number,
-    title: String,
-    readyInMinutes: Number,
-    servings: Number,
-    image: String,
-    imageUrls: Array
-  },
-  computed: {
-    imageUrl: function() {
-      return `${baseRecipiesApiPhotosUrl}${this.image}`;
-    }
-  },
-  mounted() {},
-  created() {},
-  methods: {
-    print: function() {
-      console.log(this.id);
+  export default {
+    data() {
+      return {
+        results: [],
+        likes: 0
+      }
+    },
+    props: {
+      id: Number,
+      title: String,
+      readyInMinutes: Number,
+      servings: Number,
+      image: String,
+      imageUrls: Array,
+    },
+    computed: {
+      imageUrl: function () {
+        return `${baseRecipiesApiPhotosUrl}${this.image}`
+      }
+    },
+    mounted() {
+      getLikes(this.id)
+      .then(likes => this.likes = likes);
     },
     showRecipe: function() {
       axios
@@ -77,8 +73,14 @@ export default {
       this.recipeTitle = this.title;
       this.$refs["recipe-modal"].show();
     },
-    hideModal() {
-      this.$refs["recipe-modal"].hide();
+    methods: {
+      print: function () {
+        console.log(this.id)
+      },
+      setLikes: function(id, likes){
+        setLikes(id, likes)
+        .then(likes => this.likes = likes);
+      }
     }
   }
 };

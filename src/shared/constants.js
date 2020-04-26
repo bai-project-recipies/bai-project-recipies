@@ -22,3 +22,6 @@ export const getWithEndpoint = (url) => {
   url.searchParams.append('apiKey', apiKey);
   return url
 }
+
+
+
