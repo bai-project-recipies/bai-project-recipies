@@ -2,7 +2,14 @@
   <div class="RecipeComponent">
     <b-modal ref="recipe-modal" size="lg" centered hide-footer :title="recipeTitle">
       <div v-if="this.steps" class="d-block text-left">
-        <ul id="example-1" style="list-style-type:none">
+        <h5>You will need:</h5>
+        <ul id="ingridients" style="list-style-type:none">
+          <li v-for="el in this.ingredients" :key="el">
+             {{ el.amount.metric.value }} {{ el.amount.metric.unit }} of <b>{{ el.name }}</b>
+          </li>
+        </ul>
+        <h5>All you have to do is:</h5>
+        <ul id="steps" style="list-style-type:none">
           <li v-for="el in this.steps" :key="el">
             <b>{{el.number}}</b>
             : {{ el.step }}
@@ -53,6 +60,7 @@ export default {
     return {
       results: [],
       steps: [],
+      ingredients: [],
       recipeTitle: "",
       likes: 0
     };
@@ -88,6 +96,14 @@ export default {
           )
         )
         .then(response => (this.steps = response.data[0].steps));
+      
+      axios
+        .get(
+          getWithEndpoint(
+            new URL(`${baseRecipiesApiUrl}/${this.id}/ingredientWidget.json`)
+          )
+        )
+        .then(response => (this.ingredients = response.data.ingredients));
 
       this.recipeTitle = this.title;
       this.$refs["recipe-modal"].show();
