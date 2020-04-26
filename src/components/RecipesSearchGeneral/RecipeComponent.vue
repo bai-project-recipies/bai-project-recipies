@@ -3,9 +3,16 @@
     <b-modal ref="recipe-modal" size="lg" centered hide-footer :title="recipeTitle">
       <div v-if="this.steps" class="d-block text-left">
         <h5>You will need:</h5>
-        <ul id="ingridients" style="list-style-type:none">
+        <ul v-if="this.units === 'metric'" id="ingridients" style="list-style-type:none">
           <li v-for="el in this.ingredients" :key="el">
-             {{ el.amount.metric.value }} {{ el.amount.metric.unit }} of <b>{{ el.name }}</b>
+            {{ el.amount.metric.value }} {{ el.amount.metric.unit }} of
+            <b>{{ el.name }}</b>
+          </li>
+        </ul>
+        <ul v-if="this.units === 'us'" id="ingridients" style="list-style-type:none">
+          <li v-for="el in this.ingredients" :key="el">
+            {{ el.amount.us.value }} {{ el.amount.us.unit }} of
+            <b>{{ el.name }}</b>
           </li>
         </ul>
         <h5>All you have to do is:</h5>
@@ -16,7 +23,10 @@
           </li>
         </ul>
       </div>
-      <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close</b-button>
+      <div>
+        <b-button variant="outline-info" block @click="changeUnits">{{changeUnitButtonName}}</b-button>
+        <b-button variant="outline-danger" block @click="hideModal">Close</b-button>
+      </div>
     </b-modal>
     <b-card
       v-bind:title="title"
@@ -62,7 +72,9 @@ export default {
       steps: [],
       ingredients: [],
       recipeTitle: "",
-      likes: 0
+      likes: 0,
+      units: "metric",
+      changeUnitButtonName: "change units to us"
     };
   },
   props: {
@@ -96,7 +108,7 @@ export default {
           )
         )
         .then(response => (this.steps = response.data[0].steps));
-      
+
       axios
         .get(
           getWithEndpoint(
@@ -110,6 +122,15 @@ export default {
     },
     hideModal() {
       this.$refs["recipe-modal"].hide();
+    },
+    changeUnits() {
+      if (this.units === "metric") {
+        this.units = "us";
+        this.changeUnitButtonName = "change units to metric";
+      } else {
+        this.units = "metric";
+        this.changeUnitButtonName = "change units to us";
+      }
     }
   }
 };
