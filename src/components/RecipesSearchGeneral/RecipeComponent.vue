@@ -1,9 +1,12 @@
 <template>
   <div class="RecipeComponent">
-    <b-modal ref="recipe-modal" size="lg" centered  hide-footer :title= recipeTitle>
-      <div v-if="this.steps" class="d-block text-left" >
+    <b-modal ref="recipe-modal" size="lg" centered hide-footer :title="recipeTitle">
+      <div v-if="this.steps" class="d-block text-left">
         <ul id="example-1" style="list-style-type:none">
-          <li v-for="el in this.steps" :key="el"><b>{{el.number}}</b>: {{ el.step }}</li>
+          <li v-for="el in this.steps" :key="el">
+            <b>{{el.number}}</b>
+            : {{ el.step }}
+          </li>
         </ul>
       </div>
       <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close</b-button>
@@ -21,7 +24,10 @@
       <b-card-text>
         <p class="information">Ready in minutes: {{readyInMinutes}}</p>
         <p class="information">Servings: {{servings}}</p>
-        <p class="information">Likes: {{likes}} <button v-on:click="setLikes(id, likes+1)">Add Like</button></p>
+        <p class="information">
+          Likes: {{likes}}
+          <button v-on:click="setLikes(id, likes+1)">Add Like</button>
+        </p>
       </b-card-text>
       <b-button
         href="#"
@@ -34,32 +40,45 @@
 </template>
 
 <script>
-  import {baseRecipiesApiPhotosUrl} from '../../shared/constants';
-  import {getLikes, setLikes} from '../../shared/DBHandling';
+import {
+  baseRecipiesApiPhotosUrl,
+  baseRecipiesApiUrl,
+  getWithEndpoint
+} from "../../shared/constants";
+import { getLikes, setLikes } from "../../shared/DBHandling";
+import axios from "axios";
 
-  export default {
-    data() {
-      return {
-        results: [],
-        likes: 0
-      }
+export default {
+  data() {
+    return {
+      results: [],
+      steps: [],
+      recipeTitle: "",
+      likes: 0
+    };
+  },
+  props: {
+    id: Number,
+    title: String,
+    readyInMinutes: Number,
+    servings: Number,
+    image: String,
+    imageUrls: Array
+  },
+  computed: {
+    imageUrl: function() {
+      return `${baseRecipiesApiPhotosUrl}${this.image}`;
+    }
+  },
+  mounted() {
+    getLikes(this.id).then(likes => (this.likes = likes));
+  },
+  methods: {
+    print: function() {
+      console.log(this.id);
     },
-    props: {
-      id: Number,
-      title: String,
-      readyInMinutes: Number,
-      servings: Number,
-      image: String,
-      imageUrls: Array,
-    },
-    computed: {
-      imageUrl: function () {
-        return `${baseRecipiesApiPhotosUrl}${this.image}`
-      }
-    },
-    mounted() {
-      getLikes(this.id)
-      .then(likes => this.likes = likes);
+    setLikes: function(id, likes) {
+      setLikes(id, likes).then(likes => (this.likes = likes));
     },
     showRecipe: function() {
       axios
@@ -73,14 +92,8 @@
       this.recipeTitle = this.title;
       this.$refs["recipe-modal"].show();
     },
-    methods: {
-      print: function () {
-        console.log(this.id)
-      },
-      setLikes: function(id, likes){
-        setLikes(id, likes)
-        .then(likes => this.likes = likes);
-      }
+    hideModal() {
+      this.$refs["recipe-modal"].hide();
     }
   }
 };
