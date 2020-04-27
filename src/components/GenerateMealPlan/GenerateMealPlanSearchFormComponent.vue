@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import {getWithEndpoint} from '../../shared/constants'
+  import {baseRecipiesApiUrl, getWithEndpoint} from '../../shared/constants'
   import FormCriteriaCheckBoxComponent from "../shared/FormCriteriaCheckBoxComponent";
   import '../../styles/_RecipeSearchFormComponent.css'
 
