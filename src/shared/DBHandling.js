@@ -11,9 +11,9 @@ let headers = {
 
 export const getLikes = (recipe_id) => {
   let url = new URL(dbTableUrl + `?q={"recipe_id": ${recipe_id}}`);
-  return axios.get(url, {headers: headers})
+  return axios.get(url=url, {headers: headers})
     .then(response => {
-      if(response.data.length === 0){
+      if(response.data.length == 0){
         return 0;
       }else{
         return response.data[0].likes;
@@ -23,9 +23,9 @@ export const getLikes = (recipe_id) => {
 
 export const setLikes = (recipe_id, likes) => {
   let url = new URL(dbTableUrl + `?q={"recipe_id": ${recipe_id}}`);
-  return axios.get(url, {headers: headers})
+  return axios.get(url=url, {headers: headers})
     .then(response => {
-      if(response.data.length === 0){
+      if(response.data.length == 0){
         axios({
           method: 'post',
           url: new URL(dbTableUrl),

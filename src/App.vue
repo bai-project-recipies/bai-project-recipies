@@ -7,10 +7,11 @@
 
 <script>
   import NavigationComponent from "./components/NavigationComponent";
+  import RecipiesComponent from "./components/RecipesSearchGeneral/RecipiesComponent";
 
   export default {
     name: 'app',
-    components: {NavigationComponent},
+    components: {RecipiesComponent, NavigationComponent},
     data() {
       return {
         msg: 'Welcome to Your Vue.js App'
