@@ -57,7 +57,7 @@
         supportedCuisines: ['african', 'american', 'british', 'caribbean', 'chinese', 'european',
           'french', 'german', 'indian', 'irish', 'italian', 'japanese', 'korean', 'jewish', 'mexican',
           'spanish', 'thai', 'vietnamese'],
-        supportedDiet: ['vegan', 'vegetarian', 'gluten free', 'ketogenic'],
+        supportedDiet: ['vegan', 'vegetarian', 'gluten free', 'ketogenic', 'whole30'],
         supportedIntolerances: ['dairy', 'egg', 'gluten', 'peanut', 'seafood', 'shellfish', 'soy'],
         form: {
           query: '',
@@ -89,6 +89,7 @@
         url.searchParams.append('number', this.form.number);
         url.searchParams.append('query', this.form.query);
         url.searchParams.append('cuisine', this.form.cuisine);
+        url.searchParams.append('diet', this.form.diet);
         url.searchParams.append('excludeIngredients', this.form.excludeIngredients);
         url.searchParams.append('intolerances', this.form.intolerances);
 
