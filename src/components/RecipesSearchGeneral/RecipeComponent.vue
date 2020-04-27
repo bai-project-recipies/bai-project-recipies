@@ -7,7 +7,7 @@
           v-bind:units=this.units
           v-bind:steps=this.steps
           v-bind:ingredients=this.ingredients
-          v-bind:image=this.image
+          v-bind:image=imageUrl
         />
         <b-button variant="outline-info" block @click="changeUnits">{{changeUnitButtonName}}</b-button>
         <b-button variant="outline-danger" block @click="hideModal">Close</b-button>
@@ -33,7 +33,7 @@
 <script>
   import {baseRecipiesApiPhotosUrl, getWithEndpoint, baseRecipiesApiUrl} from '../../shared/constants';
   import {getLikes, setLikes} from '../../shared/DBHandling';
-  import RecipeDetailComponent from "./RecipeDetailComponent.vue";
+  import RecipeDetailComponent from "../shared/RecipeDetailComponent.vue";
   import axios from "axios";
   export default {
     components: {RecipeDetailComponent,},
