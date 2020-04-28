@@ -12,7 +12,9 @@
       <OneGeneratedMealPlan :title="meal.title"
                             :readyInMinutes="meal.readyInMinutes"
                             :servings="meal.servings"
-                            :sourceUrl="meal.sourceUrl"/>
+                            :sourceUrl="meal.sourceUrl"
+                            :image="meal.image"
+                            :id="meal.id"/>
     </div>
   </div>
 </template>
