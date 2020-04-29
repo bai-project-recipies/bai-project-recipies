@@ -16,6 +16,9 @@
                            v-bind:image="recipe.image"
                            v-bind:imageUrls="recipe.imageUrls"/>
         </div>
+        <div v-else-if="isLoading" style="margin-top: 1rem; text-align: center; width: 100%">
+          <FetchingData/>
+        </div>
         <div v-else style="margin-top: 1rem; text-align: center;">
          <NothingFoundComponent text="Unfortunately we have not found cuisine for you, maybe try something else?"/>
         </div>
@@ -31,25 +34,35 @@
   import axios from 'axios';
   import NothingFoundComponent from "../shared/NothingFoundComponent";
   import {baseRecipiesApiUrl, getWithEndpoint} from '../../shared/constants'
+  import FetchingData from "../shared/FetchingDataComponent";
 
   export default {
     name: 'Recipes',
-    components: {RecipeComponent, RecipeSearchFormComponent},
+    components: {RecipeComponent, RecipeSearchFormComponent, NothingFoundComponent, FetchingData},
     data() {
       return {
         results: [],
+        isLoading: false,
       }
     },
     mounted() {
+      this.isLoading = true
       axios
         .get(getWithEndpoint(new URL(`${baseRecipiesApiUrl}/search/`)))
         .then(response => this.results = response.data.results)
+        .then(() => {
+          this.isLoading = false
+        })
     },
     methods: {
       setRequestUrl: function (url) {
+        this.isLoading = true
         axios
           .get(url)
           .then(response => this.results = response.data.results)
+          .then(() => {
+            this.isLoading = false
+          })
       }
     }
   };
