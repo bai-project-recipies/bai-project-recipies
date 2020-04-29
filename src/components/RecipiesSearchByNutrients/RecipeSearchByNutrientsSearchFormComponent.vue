@@ -7,7 +7,7 @@
       <h4 class="text-center mb-5">Search criteria</h4>
         <b-alert v-model="noNutrientsError" variant="danger" dismissible>No nutrients have been selected!</b-alert>
       <b-form class="row justify-content-center" @submit="onSubmit">
-        <b-button v-b-toggle.nutrient-container size="sm" style="min-width: 7rem" variant="primary" block>
+        <b-button class="mb-3" v-b-toggle.nutrient-container size="sm" style="min-width: 7rem" variant="primary" block>
           <b-icon icon="filter-left"/> Nutrients <b-icon icon="arrows-collapse"/>
         </b-button>
         <b-collapse id="nutrient-container" class="mt-2">

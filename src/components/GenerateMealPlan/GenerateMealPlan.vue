@@ -17,7 +17,12 @@
             <WeekMealPlan :week-plan="results.week"/>
           </div>
         </div>
-        <div v-else><h4 class="mt-10 ml-10">No meal plans found or you have not generated one yet :(</h4></div>
+        <div v-else-if="isLoading" style="margin-top: 1rem; text-align: center;">
+          <FetchingData/>
+        </div>
+        <div v-else style="width: 100%; margin-top: 1rem; text-align: center;">
+          <NothingFoundComponent text="No meal plans found or you have not generated one yet :("/>
+        </div>
       </div>
     </div>
   </div>
@@ -28,15 +33,18 @@
   import GenerateMealPlanSearchFormComponent from "./GenerateMealPlanSearchFormComponent";
   import DayMealPlan from "./DayMealPlan";
   import OneGeneratedMealPlan from "./OneGeneratedMealPlan";
+  import NothingFoundComponent from "../shared/NothingFoundComponent"
   import WeekMealPlan from "./WeekMealPlan";
+  import FetchingData from "../shared/FetchingDataComponent";
 
   export default {
     name: 'GenerateMealPlan',
-    components: {OneGeneratedMealPlan, GenerateMealPlanSearchFormComponent, DayMealPlan, WeekMealPlan},
+    components: {OneGeneratedMealPlan, GenerateMealPlanSearchFormComponent, DayMealPlan, WeekMealPlan, FetchingData, NothingFoundComponent},
     data() {
       return {
         timeFrame: '',
         results: {},
+        isLoading: false,
       }
     },
     methods: {
@@ -44,9 +52,13 @@
         this.timeFrame = timeFrame
       },
       setRequestUrl: function (url) {
+        this.isLoading = true
         axios
           .get(url)
           .then(response => this.results = response.data)
+          .then(() => {
+            this.isLoading = false
+          })
       },
       isEmpty: function (obj) {
         for (let key in obj) {

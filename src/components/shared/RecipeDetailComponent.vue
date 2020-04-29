@@ -17,7 +17,7 @@
             </li>
           </ul>
         </div>
-        <img v-bind:src=imageUrl height="200rem" style="float: right; margin-top: 1rem; margin-right: 1rem">
+        <img v-bind:src=this.image height="200rem" style="float: right; margin-top: 1rem; margin-right: 1rem">
       </div>
       <h5>All you have to do is:</h5>
       <ul id="steps" style="list-style-type:none; margin-left: 1rem">
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-  import {baseRecipiesApiPhotosUrl} from '../../shared/constants';
   export default {
     data() {
       return {};
@@ -44,9 +43,6 @@
       image: String,
     },
     computed: {
-      imageUrl: function () {
-        return `${baseRecipiesApiPhotosUrl}${this.image}`
-      }
     },
     mounted(){},
     methods: {}
