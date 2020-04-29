@@ -23,7 +23,7 @@
       <b-card-text>
         <p class="information">Ready in minutes: {{readyInMinutes}}</p>
         <p class="information">Servings: {{servings}}</p>
-        <p class="information">Likes: {{likes}} <button v-on:click="setLikes(id, likes+1)">Add Like</button></p>
+        <p class="information">Likes: {{likes}} <button v-on:click="setLikes(id, likes+1)" :disabled="liked"><b-icon :icon="icon" style="color: red;"></b-icon></button></p>
       </b-card-text>
       <b-button href="#" variant="primary" style="color: aliceblue" v-on:click="showRecipe">Go to recipe</b-button>
     </b-card>
@@ -45,7 +45,8 @@
         likes: 0,
         recipeTitle: "",
         units: "metric",
-        changeUnitButtonName: "change units to us"
+        changeUnitButtonName: "change units to us",
+        liked: false
       }
     },
     props: {
@@ -59,7 +60,14 @@
     computed: {
       imageUrl: function () {
         return `${baseRecipiesApiPhotosUrl}${this.image}`
-      }
+      },
+      icon: function () {
+        if(this.liked){
+          return "heart-fill";
+        }else{
+          return "heart";
+        }
+      },
     },
     mounted() {
       getLikes(this.id)
@@ -74,6 +82,7 @@
       setLikes: function(id, likes){
         setLikes(id, likes)
           .then(likes => this.likes = likes);
+        this.liked = true;
       },
       showRecipe: function() {
         axios

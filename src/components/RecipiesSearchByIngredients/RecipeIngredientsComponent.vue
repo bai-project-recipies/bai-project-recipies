@@ -18,9 +18,7 @@
           <b-button type="button" disabled class="info justify-content-end" size="sm" data-toggle="tooltip" :title="unusedIngredients.map(ing => ing.name).toString()">Show</b-button>
         </p>
 
-        <p class="information mt-2">Likes: {{likes}}
-          <button v-on:click="setLikes(id, likes+1)">Add Like</button>
-        </p>
+        <p class="information mt-2">Likes: {{likes}} <button v-on:click="setLikes(id, likes+1)" :disabled="liked"><b-icon :icon="icon" style="color: red;"></b-icon></button></p>
       </b-card-text>
       <b-button href="#" variant="primary" style="color: aliceblue">Go to recipe</b-button>
     </b-card>
@@ -34,7 +32,8 @@
     data() {
       return {
         results: [],
-        likes: 0
+        likes: 0,
+        liked: false
       }
     },
     props: {
@@ -50,7 +49,14 @@
     computed: {
       imageUrl: function () {
         return `${this.image}`
-      }
+      },
+      icon: function () {
+        if(this.liked){
+          return "heart-fill";
+        }else{
+          return "heart";
+        }
+      },
     },
     mounted() {
       getLikes(this.id)
@@ -65,6 +71,7 @@
       setLikes: function (id, likes) {
         setLikes(id, likes)
           .then(likes => this.likes = likes);
+        this.liked = true;
       }
     }
   }

@@ -12,6 +12,7 @@
         <p class="information">Carbs: {{carbs}}</p>
         <p class="information">Fat: {{fat}}</p>
         <p class="information">Protein: {{protein}}</p>
+        <p class="information">Likes: {{likes}} <button v-on:click="setLikes(id, likes+1)" :disabled="liked"><b-icon :icon="icon" style="color: red;"></b-icon></button></p>
       </b-card-text>
       <b-button href="#" variant="primary" style="color: aliceblue">Go to recipe</b-button>
     </b-card>
@@ -20,11 +21,14 @@
 
 <script>
   import {baseRecipiesApiPhotosUrl} from '../../shared/constants'
+  import {getLikes, setLikes} from '../../shared/DBHandling';
 
   export default {
     data() {
       return {
-        results: []
+        results: [],
+        likes: 0,
+        liked: false
       }
     },
     props: {
@@ -40,15 +44,29 @@
     computed: {
       imageUrl: function () {
         return `${this.image}`
-      }
+      },
+      icon: function () {
+        if(this.liked){
+          return "heart-fill";
+        }else{
+          return "heart";
+        }
+      },
     },
     mounted() {
+      getLikes(this.id)
+        .then(likes => this.likes = likes);
     },
     created() {
     },
     methods: {
       print: function () {
         console.log(this.id)
+      },
+      setLikes: function (id, likes) {
+        setLikes(id, likes)
+          .then(likes => this.likes = likes);
+        this.liked = true;
       }
     }
   }
