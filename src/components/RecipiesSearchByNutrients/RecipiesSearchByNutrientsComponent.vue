@@ -18,7 +18,9 @@
                            v-bind:image="recipe.image"
                            v-bind:imageUrls="recipe.imageUrls"/>
         </div>
-
+        <div v-else-if="isLoading" style="margin-top: 1rem; text-align: center;">
+          <FetchingData/>
+        </div>
         <div v-else style="width: 100%; margin-top: 1rem; text-align: center;">
           <NothingFoundComponent text="No recipes found or you have not made a search yet :("/>
         </div>
@@ -31,26 +33,31 @@
   import RecipeComponent from "./RecipeNutrientsComponent";
   import NothingFoundComponent from "../shared/NothingFoundComponent";
   import RecipeSearchFormComponent from './RecipeSearchByNutrientsSearchFormComponent.vue'
+  import FetchingData from "../shared/FetchingDataComponent";
   import '../../styles/_RecipesComponent.css'
   import axios from 'axios';
-  import {baseRecipiesApiUrl, getWithEndpoint} from '../../shared/constants'
 
   export default {
     name: 'RecipesByNutrients',
-    components: {RecipeComponent, RecipeSearchFormComponent, NothingFoundComponent},
+    components: {RecipeComponent, RecipeSearchFormComponent, FetchingData, NothingFoundComponent},
     data() {
       return {
         results: [],
+        isLoading: false,
       }
     },
     methods: {
       setRequestUrl: function (url) {
+        this.isLoading = true
         axios
           .get(url)
           .then(response => {
             console.log(response);
             this.results = response.data;
-            })
+          })
+          .then(() => {
+            this.isLoading = false
+          })
       }
     }
   };
