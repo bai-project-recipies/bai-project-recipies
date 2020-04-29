@@ -5,8 +5,8 @@
       <div class="filter-panel flex-fill">
         <RecipeSearchFormComponent @setRequestUrl="setRequestUrl"/>
       </div>
-      <div class="recipes d-flex flex-wrap justify-content-center">
-        <div v-if="results.length> 0" class="d-flex flex-wrap justify-content-center">
+      <div class="recipes d-flex flex-wrap justify-content-center mt-5" style="width: 100%">
+        <div v-if="results.length > 0" class="d-flex flex-wrap justify-content-center">
           <RecipeComponent v-for="recipe in results"
                            v-bind:key="recipe.id"
                            v-bind:title="recipe.title"
@@ -17,8 +17,7 @@
                            v-bind:imageUrls="recipe.imageUrls"/>
         </div>
         <div v-else style="margin-top: 1rem; text-align: center;">
-          <h4 class="mt-10 ml-10">Unfortunately we have not found cuisine for you, maybe try something else?</h4>
-          <img src="../../assets/NoRecipesImg.png" alt="empty plate" width="350rem" style="margin-top: 3rem">
+         <NothingFoundComponent text="Unfortunately we have not found cuisine for you, maybe try something else?"/>
         </div>
       </div>
     </div>
@@ -30,6 +29,7 @@
   import RecipeSearchFormComponent from './RecipeSearchFormComponent.vue'
   import '../../styles/_RecipesComponent.css'
   import axios from 'axios';
+  import NothingFoundComponent from "../shared/NothingFoundComponent";
   import {baseRecipiesApiUrl, getWithEndpoint} from '../../shared/constants'
 
   export default {

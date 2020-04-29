@@ -17,7 +17,10 @@
             <WeekMealPlan :week-plan="results.week"/>
           </div>
         </div>
-        <div v-else><h4 class="mt-10 ml-10">No meal plans found or you have not generated one yet :(</h4></div>
+
+        <div v-else style="width: 100%; margin-top: 1rem; text-align: center;">
+          <NothingFoundComponent text="No meal plans found or you have not generated one yet :("/>
+        </div>
       </div>
     </div>
   </div>
@@ -28,11 +31,12 @@
   import GenerateMealPlanSearchFormComponent from "./GenerateMealPlanSearchFormComponent";
   import DayMealPlan from "./DayMealPlan";
   import OneGeneratedMealPlan from "./OneGeneratedMealPlan";
+  import NothingFoundComponent from "../shared/NothingFoundComponent"
   import WeekMealPlan from "./WeekMealPlan";
 
   export default {
     name: 'GenerateMealPlan',
-    components: {OneGeneratedMealPlan, GenerateMealPlanSearchFormComponent, DayMealPlan, WeekMealPlan},
+    components: {OneGeneratedMealPlan, GenerateMealPlanSearchFormComponent, DayMealPlan, WeekMealPlan, NothingFoundComponent},
     data() {
       return {
         timeFrame: '',
