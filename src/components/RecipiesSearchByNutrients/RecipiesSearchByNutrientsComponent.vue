@@ -5,7 +5,7 @@
       <div class="filter-panel flex-fill">
         <RecipeSearchFormComponent @setRequestUrl="setRequestUrl"/>
       </div>
-      <div class="recipes d-flex flex-wrap justify-content-center">
+      <div class="recipes d-flex flex-wrap justify-content-center mt-5" style="width: 90%">
         <div v-if="results.length> 0" class="d-flex flex-wrap justify-content-center">
           <RecipeComponent v-for="recipe in results"
                            v-bind:title="recipe.title"
@@ -18,7 +18,10 @@
                            v-bind:image="recipe.image"
                            v-bind:imageUrls="recipe.imageUrls"/>
         </div>
-        <div v-else><h4 class="mt-10 ml-10">No recipes found</h4></div>
+
+        <div v-else style="width: 100%; margin-top: 1rem; text-align: center;">
+          <NothingFoundComponent text="No recipes found or you have not made a search yet :("/>
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +29,7 @@
 
 <script>
   import RecipeComponent from "./RecipeNutrientsComponent";
+  import NothingFoundComponent from "../shared/NothingFoundComponent";
   import RecipeSearchFormComponent from './RecipeSearchByNutrientsSearchFormComponent.vue'
   import '../../styles/_RecipesComponent.css'
   import axios from 'axios';
@@ -33,7 +37,7 @@
 
   export default {
     name: 'RecipesByNutrients',
-    components: {RecipeComponent, RecipeSearchFormComponent},
+    components: {RecipeComponent, RecipeSearchFormComponent, NothingFoundComponent},
     data() {
       return {
         results: [],
