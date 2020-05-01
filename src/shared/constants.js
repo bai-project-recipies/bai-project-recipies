@@ -1,5 +1,5 @@
-export const UrlSuffix = 'apiKey=faab0c512e854c5a98f1ee457848e1f3'
-const apiKey='faab0c512e854c5a98f1ee457848e1f3'
+export const UrlSuffix = 'apiKey=f67dc8adad4d4e8b8ff7900faa341342'
+const apiKey='f67dc8adad4d4e8b8ff7900faa341342'
 export const baseRecipiesApiUrl = 'https://api.spoonacular.com/recipes'
 export const baseRecipiesApiPhotosUrl = 'https://spoonacular.com/recipeImages/'
 
