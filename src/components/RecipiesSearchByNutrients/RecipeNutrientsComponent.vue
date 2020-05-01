@@ -78,7 +78,7 @@
         }
       },
       compactTitle: function(){
-        let acceptableLength = 20;
+        let acceptableLength = 22;
         if(this.title.length>acceptableLength){
           return `${this.title.substring(0, acceptableLength-3)}...`;
         }
