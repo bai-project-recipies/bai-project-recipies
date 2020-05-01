@@ -13,19 +13,24 @@
         <b-button variant="outline-danger" block @click="hideModal">Close</b-button>
       </div>
     </b-modal>
-    <b-card v-bind:title="title"
+    <b-card v-bind:title="compactTitle"
             v-bind:img-src="imageUrl"
             img-alt="Image"
             img-top
             class="mb-1 mr-1"
-            style="min-width: 15rem; max-width: 20rem; height: 37rem" img-height="300rem">
+            style="min-width: 15rem; max-width: 20rem; height: 37rem"
+            img-height="300rem"
+            img-width="300rem"
+            footer-tag="footer">
       <!--      <b-img :src="imageUrl" center fluid rounded="10"/>-->
       <b-card-text>
         <p class="information">Ready in minutes: {{readyInMinutes}}</p>
         <p class="information">Servings: {{servings}}</p>
         <p class="information">Likes: {{likes}} <button v-on:click="setLikes(id, likes+1)" :disabled="liked"><b-icon :icon="icon" style="color: red;"></b-icon></button></p>
       </b-card-text>
-      <b-button href="#" variant="primary" style="color: aliceblue" v-on:click="showRecipe">Go to recipe</b-button>
+      <template v-slot:footer>
+        <b-button href="#" variant="primary" style="color: aliceblue" v-on:click="showRecipe">Go to recipe</b-button>
+      </template>
     </b-card>
   </div>
 </template>
@@ -68,6 +73,13 @@
           return "heart";
         }
       },
+      compactTitle: function(){
+        let acceptableLength = 45;
+        if(this.title.length>acceptableLength){
+          return `${this.title.substring(0, acceptableLength-3)}...`;
+        }
+        return this.title;
+      }
     },
     mounted() {
       getLikes(this.id)
