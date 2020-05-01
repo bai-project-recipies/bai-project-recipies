@@ -7,13 +7,27 @@
           <ul v-if="this.units === 'metric'" id="ingridients" style="list-style-type:none; margin-left: 1rem">
             <li v-for="el in this.ingredients" :key="el">
               {{ el.amount.metric.value }} {{ el.amount.metric.unit }} of
-              <b>{{ el.name }}</b>
+              <v-tooltip right>
+                <template v-slot:activator="{ on }">
+                  <span v-on="on"><b>{{ el.name }}</b></span>
+                </template>
+                <IngredientsGroceriesComponent
+                  v-bind:ingredient=el.name
+                />
+              </v-tooltip>
             </li>
           </ul>
           <ul v-if="this.units === 'us'" id="ingridients" style="list-style-type:none; margin-left: 1rem">
             <li v-for="el in this.ingredients" :key="el">
               {{ el.amount.us.value }} {{ el.amount.us.unit }} of
-              <b>{{ el.name }}</b>
+              <v-tooltip right>
+                <template v-slot:activator="{ on }">
+                  <span v-on="on"><b>{{ el.name }}</b></span>
+                </template>
+                <IngredientsGroceriesComponent
+                  v-bind:ingredient=el.name
+                />
+              </v-tooltip>
             </li>
           </ul>
         </div>
@@ -31,7 +45,14 @@
 </template>
 
 <script>
+  import VTitle from 'v-title';
+  import IngredientsGroceriesComponent from "./IngredientsGroceriesComponent.vue";
+
   export default {
+    directives: {
+      VTitle
+    },
+    components: {IngredientsGroceriesComponent,},
     data() {
       return {};
     },
