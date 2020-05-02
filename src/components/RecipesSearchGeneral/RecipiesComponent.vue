@@ -5,9 +5,10 @@
       <div class="filter-panel flex-fill">
         <RecipeSearchFormComponent @setRequestUrl="setRequestUrl"/>
       </div>
-      <div class="recipes d-flex flex-wrap justify-content-center">
-        <div v-if="results.length> 0" class="d-flex flex-wrap justify-content-center">
+      <div class="recipes d-flex flex-wrap justify-content-center mt-5" style="width: 100%">
+        <div v-if="results.length > 0" class="d-flex flex-wrap justify-content-center">
           <RecipeComponent v-for="recipe in results"
+                           v-bind:key="recipe.id"
                            v-bind:title="recipe.title"
                            v-bind:id="recipe.id"
                            v-bind:readyInMinutes="recipe.readyInMinutes"
@@ -15,7 +16,12 @@
                            v-bind:image="recipe.image"
                            v-bind:imageUrls="recipe.imageUrls"/>
         </div>
-        <div v-else><h4 class="mt-10 ml-10">No recipes found</h4></div>
+        <div v-else-if="isLoading" style="margin-top: 1rem; text-align: center; width: 100%">
+          <FetchingData/>
+        </div>
+        <div v-else style="margin-top: 1rem; text-align: center;">
+         <NothingFoundComponent text="Unfortunately we have not found cuisine for you, maybe try something else?"/>
+        </div>
       </div>
     </div>
   </div>
@@ -26,26 +32,37 @@
   import RecipeSearchFormComponent from './RecipeSearchFormComponent.vue'
   import '../../styles/_RecipesComponent.css'
   import axios from 'axios';
+  import NothingFoundComponent from "../shared/NothingFoundComponent";
   import {baseRecipiesApiUrl, getWithEndpoint} from '../../shared/constants'
+  import FetchingData from "../shared/FetchingDataComponent";
 
   export default {
     name: 'Recipes',
-    components: {RecipeComponent, RecipeSearchFormComponent},
+    components: {RecipeComponent, RecipeSearchFormComponent, NothingFoundComponent, FetchingData},
     data() {
       return {
         results: [],
+        isLoading: false,
       }
     },
     mounted() {
+      this.isLoading = true
       axios
         .get(getWithEndpoint(new URL(`${baseRecipiesApiUrl}/search/`)))
         .then(response => this.results = response.data.results)
+        .then(() => {
+          this.isLoading = false
+        })
     },
     methods: {
       setRequestUrl: function (url) {
+        this.isLoading = true
         axios
           .get(url)
           .then(response => this.results = response.data.results)
+          .then(() => {
+            this.isLoading = false
+          })
       }
     }
   };

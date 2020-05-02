@@ -17,7 +17,16 @@
             <WeekMealPlan :week-plan="results.week"/>
           </div>
         </div>
+<<<<<<< HEAD
         <div v-else><h4 class="mt-10 ml-10">No meal plans found or you have not generated one yet :(</h4></div>
+=======
+        <div v-else-if="isLoading" style="margin-top: 1rem; text-align: center;">
+          <FetchingData/>
+        </div>
+        <div v-else style="width: 100%; margin-top: 1rem; text-align: center;">
+          <NothingFoundComponent text="No meal plans found or you have not generated one yet :("/>
+        </div>
+>>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
       </div>
     </div>
   </div>
@@ -28,15 +37,29 @@
   import GenerateMealPlanSearchFormComponent from "./GenerateMealPlanSearchFormComponent";
   import DayMealPlan from "./DayMealPlan";
   import OneGeneratedMealPlan from "./OneGeneratedMealPlan";
+<<<<<<< HEAD
   import WeekMealPlan from "./WeekMealPlan";
 
   export default {
     name: 'GenerateMealPlan',
     components: {OneGeneratedMealPlan, GenerateMealPlanSearchFormComponent, DayMealPlan, WeekMealPlan},
+=======
+  import NothingFoundComponent from "../shared/NothingFoundComponent"
+  import WeekMealPlan from "./WeekMealPlan";
+  import FetchingData from "../shared/FetchingDataComponent";
+
+  export default {
+    name: 'GenerateMealPlan',
+    components: {OneGeneratedMealPlan, GenerateMealPlanSearchFormComponent, DayMealPlan, WeekMealPlan, FetchingData, NothingFoundComponent},
+>>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
     data() {
       return {
         timeFrame: '',
         results: {},
+<<<<<<< HEAD
+=======
+        isLoading: false,
+>>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
       }
     },
     methods: {
@@ -44,9 +67,19 @@
         this.timeFrame = timeFrame
       },
       setRequestUrl: function (url) {
+<<<<<<< HEAD
         axios
           .get(url)
           .then(response => this.results = response.data)
+=======
+        this.isLoading = true
+        axios
+          .get(url)
+          .then(response => this.results = response.data)
+          .then(() => {
+            this.isLoading = false
+          })
+>>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
       },
       isEmpty: function (obj) {
         for (let key in obj) {

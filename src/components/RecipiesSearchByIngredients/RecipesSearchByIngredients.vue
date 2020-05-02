@@ -7,9 +7,10 @@
       <div class="filter-panel flex-fill ml-2">
         <RecipeSearchByIngredientSearchFormComponent @setRequestUrl="setRequestUrl"/>
       </div>
-      <div class="recipes d-flex flex-wrap justify-content-center">
+      <div class="recipes d-flex flex-wrap justify-content-center mt-5" style="width: 100%">
         <div v-if="results.length > 0" class="d-flex flex-wrap justify-content-center">
           <RecipeIngredientsComponent v-for="recipe in results"
+            v-bind:key="recipe.id"
             v-bind:title="recipe.title"
             v-bind:id="recipe.id"
             v-bind:usedIngredientCount="recipe.usedIngredientCount"
@@ -19,8 +20,11 @@
             v-bind:usedIngredients="recipe.usedIngredients"
             v-bind:image="recipe.image"/>
         </div>
-        <div v-else>
-          <h4 class="mt-10 ml-10">No recipes found or you have not made a search yet :(</h4>
+        <div v-else-if="isLoading" style="margin-top: 1rem; text-align: center;">
+          <FetchingData/>
+        </div>
+        <div v-else style="width: 100%; margin-top: 1rem; text-align: center;">
+          <NothingFoundComponent text="No recipes found or you have not made a search yet :("/>
         </div>
       </div>
     </div>
@@ -29,22 +33,31 @@
 
 <script>
   import RecipeSearchByIngredientSearchFormComponent from "./RecipeSearchByIngredientSearchFormComponent";
+  import NothingFoundComponent from "../shared/NothingFoundComponent";
   import RecipeIngredientsComponent from "./RecipeIngredientsComponent";
+  import FetchingData from "../shared/FetchingDataComponent";
   import axios from "axios";
 
   export default {
     name: 'RecipesByIngredients',
-    components: {RecipeSearchByIngredientSearchFormComponent, RecipeIngredientsComponent},
+    components: {RecipeSearchByIngredientSearchFormComponent, RecipeIngredientsComponent, FetchingData, NothingFoundComponent},
     data() {
       return {
         results: [],
+        isLoading: false,
       }
     },
     methods: {
       setRequestUrl: function (url) {
+        this.isLoading = true;
         axios
           .get(url)
-          .then(response => {this.results = response.data})
+          .then(response => {
+            this.results = response.data
+          })
+        .then(() => {
+          this.isLoading = false
+        })
       }
     }
   };

@@ -9,14 +9,18 @@
           <b-navbar-nav class="left">
             <b-nav-item-dropdown text="Search recipies" right>
               <b-dropdown-item v-for="item in items">
-                <router-link :to="item.path">{{item.title}}</router-link>
+                <router-link :to="item.path" :key="item">{{item.title}}</router-link>
               </b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
 
           <b-navbar-nav>
+<<<<<<< HEAD
             <b-nav-item><router-link tag="info" to="/generate-meal-plan">Generate meal plan</router-link></b-nav-item>
             <b-nav-item>Map ingredient to grocery products</b-nav-item>
+=======
+            <b-nav-item><router-link tag="span" to="/generate-meal-plan">Generate meal plan</router-link></b-nav-item>
+>>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -34,7 +38,6 @@
           { title: 'Fast simple search', icon: '', path: '/' },
           { title: 'By ingredients', icon: '', path: '/by-ingredients' },
           { title: 'By nutrients', icon: '', path: '/by-nutrients' },
-          { title: 'Complex search', icon: '', path: '/complex' },
         ],
       }
     },

@@ -8,11 +8,21 @@
       Fat: {{nutrients.fat}} <br>
       Carbohydrates: {{nutrients.carbohydrates}}
     </p>
+<<<<<<< HEAD
     <div v-for="meal in meals" >
       <OneGeneratedMealPlan :title="meal.title"
                             :readyInMinutes="meal.readyInMinutes"
                             :servings="meal.servings"
                             :sourceUrl="meal.sourceUrl"/>
+=======
+    <div v-for="meal in meals" :key="meal.id">
+      <OneGeneratedMealPlan :title="meal.title"
+                            :readyInMinutes="meal.readyInMinutes"
+                            :servings="meal.servings"
+                            :sourceUrl="meal.sourceUrl"
+                            :image="meal.image"
+                            :id="meal.id"/>
+>>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
     </div>
   </div>
 </template>
