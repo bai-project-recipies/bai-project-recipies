@@ -26,11 +26,7 @@
       <b-card-text>
         <p class="information">Ready in minutes: {{readyInMinutes}}</p>
         <p class="information">Servings: {{servings}}</p>
-<<<<<<< HEAD
-        <p class="information">Likes: {{likes}} <button v-on:click="setLikes(id, likes+1)">Add Like</button></p>
-=======
         <p class="information">Likes: {{likes}} <button v-on:click="setLikes(id, likes+1)" :disabled="liked"><b-icon :icon="icon" style="color: red;"></b-icon></button></p>
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
       </b-card-text>
       <template v-slot:footer>
         <b-button href="#" variant="primary" style="color: aliceblue" v-on:click="showRecipe">Go to recipe</b-button>
@@ -40,24 +36,15 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-  import {baseRecipiesApiPhotosUrl} from '../../shared/constants';
-  import {getLikes, setLikes} from '../../shared/DBHandling';
-
-=======
   import {baseRecipiesApiPhotosUrl, getWithEndpoint, baseRecipiesApiUrl} from '../../shared/constants';
   import {getLikes, setLikes} from '../../shared/DBHandling';
   import RecipeDetailComponent from "../shared/RecipeDetailComponent.vue";
   import axios from "axios";
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
   export default {
     components: {RecipeDetailComponent,},
     data() {
       return {
         results: [],
-<<<<<<< HEAD
-        likes: 0
-=======
         steps: [],
         ingredients: [],
         likes: 0,
@@ -65,7 +52,6 @@
         units: "metric",
         changeUnitButtonName: "change units to us",
         liked: false
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
       }
     },
     props: {
@@ -97,11 +83,7 @@
     },
     mounted() {
       getLikes(this.id)
-<<<<<<< HEAD
-      .then(likes => this.likes = likes);
-=======
         .then(likes => this.likes = likes);
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
     },
     created() {
     },
@@ -111,9 +93,6 @@
       },
       setLikes: function(id, likes){
         setLikes(id, likes)
-<<<<<<< HEAD
-        .then(likes => this.likes = likes);
-=======
           .then(likes => this.likes = likes);
         this.liked = true;
       },
@@ -146,7 +125,6 @@
           this.units = "metric";
           this.changeUnitButtonName = "change units to us";
         }
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
       }
     }
   }

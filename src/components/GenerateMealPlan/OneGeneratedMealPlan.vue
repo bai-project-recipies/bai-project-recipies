@@ -1,7 +1,5 @@
 <template>
   <div class="OneGeneratedMealPlan mb-3">
-<<<<<<< HEAD
-=======
     <b-modal ref="recipe-modal" size="lg" centered hide-footer :title="recipeTitle">
       <div>
         <RecipeDetailComponent
@@ -15,7 +13,6 @@
         <b-button variant="outline-danger" block @click="hideModal">Close</b-button>
       </div>
     </b-modal>
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
     <b-card v-bind:title="title">
       <b-card-text>
         <p>Ready in minutes: {{readyInMinutes}} <br>
@@ -23,23 +20,12 @@
           Source url: <a :href="sourceUrl">{{sourceUrl}}</a>
         </p>
       </b-card-text>
-<<<<<<< HEAD
-      <b-button href="#" variant="primary" style="color: aliceblue">Go to recipe</b-button>
-=======
       <b-button href="#" variant="primary" style="color: aliceblue" v-on:click="showRecipe">Go to recipe</b-button>
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
     </b-card>
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
-  export default {
-    name: 'OneGeneratedMealPlan',
-    data() {
-      return {
-        likes: 0
-=======
   import {setLikes} from "../../shared/DBHandling";
   import axios from "axios";
   import {baseRecipiesApiPhotosUrl, baseRecipiesApiUrl, getWithEndpoint} from "../../shared/constants";
@@ -56,7 +42,6 @@
         recipeTitle: "",
         units: "metric",
         changeUnitButtonName: "change units to us"
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
       }
     },
     props: {
@@ -65,11 +50,6 @@
       readyInMinutes: Number,
       servings: Number,
       sourceUrl: String,
-<<<<<<< HEAD
-    },
-    mounted() {
-    },
-=======
       image: String,
     },
     computed: {
@@ -111,6 +91,5 @@
         }
       }
     }
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
   };
 </script>

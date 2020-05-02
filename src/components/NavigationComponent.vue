@@ -15,12 +15,7 @@
           </b-navbar-nav>
 
           <b-navbar-nav>
-<<<<<<< HEAD
-            <b-nav-item><router-link tag="info" to="/generate-meal-plan">Generate meal plan</router-link></b-nav-item>
-            <b-nav-item>Map ingredient to grocery products</b-nav-item>
-=======
             <b-nav-item><router-link tag="span" to="/generate-meal-plan">Generate meal plan</router-link></b-nav-item>
->>>>>>> d08b4e0bc87c1f54307c975e54b8e3ddcc8d7f89
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
